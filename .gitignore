@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# LaTeX intermediates (Tectonic usually doesn't leave these, but just in case)
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Built report artifacts — rebuild with `make pdf` / `make docx`
+report/report.pdf
+report/report.docx

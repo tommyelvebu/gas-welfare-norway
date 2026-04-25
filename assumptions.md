@@ -82,28 +82,34 @@ Most estimates cluster around −0.15 to −0.25 for pure short-run residential 
 
 ---
 
-## A6. Short-Run Gas Supply Elasticity — ε_s = 0.35
+## A6. Short-Run Gas Supply Elasticities — ε_s = 0.35 (aggregate) and ε_s,NO = 0.07 (Norway)
 
-**What we assume:** Total European gas supply expands 0.35% for every 1% rise in price (short run).
+**What we assume:** The model uses **two distinct supply elasticities** that play different roles:
 
-**Evidence and important clarification:** This parameter requires careful interpretation. For Norwegian pipeline gas *alone*, the true short-run elasticity is very low — approximately **0.05–0.15** — because:
-- Norwegian fields operate near plateau production
-- Gassco reported near-maximum technical capacity utilisation in 2021–2022
-- Norwegian exports grew only ~8% from 2021 to 2022 (113 to 122 bcm) despite a 5–10x price increase
+1. **Aggregate European supply elasticity, ε_s = 0.35** — used to solve the European market equilibrium and pin down the post-shock price P₁.
+2. **Norway-specific supply elasticity, ε_s,NO = 0.07** — used to compute Norway's own quantity response and producer surplus.
 
-However, ε_s = 0.35 applies to the **aggregate European supply curve**, not Norway alone. The aggregate includes:
+**Why two elasticities?** They describe different things, and conflating them was the original modelling error. The aggregate captures the *whole European supply system's* response to a price rise, which bundles in:
 - LNG imports (highly price-responsive; new terminals came online in 2022)
+- Storage drawdowns (effectively a one-off supply boost)
+- US shale (~6–9 month response, reasonably elastic)
 - Domestic EU production (Netherlands Groningen, North Sea)
 - Algeria/Azerbaijan pipeline (some responsiveness)
-- Norwegian gas (low responsiveness)
+- Norwegian pipeline gas (low responsiveness)
 
-The mix of these sources produces an aggregate supply curve that is more elastic than Norwegian gas alone. A supply elasticity of 0.35 for the aggregated European market is consistent with the general natural gas supply literature (e.g., Krichene 2002 finds global conventional gas supply elasticities around 0.10–0.30; US conventional gas is 0.2–0.4).
+A 0.35 aggregate elasticity sits in the literature consensus (Krichene 2002 finds global conventional gas supply elasticities around 0.10–0.30; US conventional gas is 0.2–0.4) and produces a realistic post-shock price (P₁ ≈ 44 EUR/MWh under δ = 40% — within the empirical 2022 average TTF range).
 
-**Note in the notebook:** The model itself acknowledges this implicitly — Norwegian output grows only 5.2% in the model (from ~1,000 to ~1,052 TWh), which aligns with the actual 2021→2022 increase of ~8%. Most of Norway's welfare gain comes from the higher price on existing volumes, not volume expansion. This is the correct economic logic regardless of the aggregate supply elasticity.
+Norway alone is far less elastic in the short run because:
+- Norwegian fields operate near plateau production
+- Gassco reported near-maximum technical capacity utilisation in 2021–2022
+- Export pipelines (Langeled, Europipe I/II, Franpipe) have fixed throughput ceilings
+- Norwegian exports grew only ~8% from 2021 to 2022 (113 to 122 bcm) despite a 5–10x price increase
 
-**Verdict: Defensible as an aggregate market parameter.** For the European-wide supply model, 0.35 is reasonable. The model's use of Norway's fixed supply share (A_NO = 0.25 × A_s) correctly captures Norway's low short-run responsiveness despite the aggregate elasticity being 0.35.
+The 0.07 figure is consistent with this empirical observation: under our model with ε_s,NO = 0.07 and a 119% price increase, Norway's output grows by ~5.7% — slightly below the empirical 8% but within the order of magnitude, and consistent with Equinor/Gassco capacity statements.
 
-**Source:** Oxford Energy Institute NG-127 (2018) "Norwegian Gas Exports"; IEA Norway Natural Gas Security Policy; Krichene (2002) cited in IMF Working Paper 2022/143.
+**Verdict: Both values are defensible.** The aggregate (0.35) is supported by the natural gas supply literature for integrated import-flexible markets. The Norway-specific value (0.07) is supported by the empirical 2021→2022 production response and the well-documented capacity constraints on Norwegian Continental Shelf output. Splitting the elasticities is essential because applying 0.35 to Norway alone would imply a 31.7% volume increase, contradicting both the empirical record and the capacity-constraint narrative.
+
+**Source:** Oxford Energy Institute NG-127 (2018) "Norwegian Gas Exports"; IEA Norway Natural Gas Security Policy; Krichene (2002) cited in IMF Working Paper 2022/143; Equinor/Gassco 2022 capacity statements.
 
 ---
 
@@ -160,7 +166,7 @@ The model's 50,000 EUR is approximately **10% below the actual 2021 median**.
 
 CV = (energy_spend × [(p₁/p₀)^(1−η) − 1]) / (1 − η)
 
-Income I appears in both V(p₀, I) and V(p₁, I) and cancels exactly. The sole purpose of I in the code is to verify the quasi-linearity condition (y_post > 0, i.e., households are not spending more than their income on energy after the shock). With post-shock energy spending of ~3,467 EUR and income of 50,000 EUR, this condition holds with large margin.
+Income I appears in both V(p₀, I) and V(p₁, I) and cancels exactly. The sole purpose of I in the code is to verify the quasi-linearity condition (y_post > 0, i.e., households are not spending more than their income on energy after the shock). With post-shock energy spending of ~2,776 EUR and income of 50,000 EUR, this condition holds with large margin.
 
 **Verdict: Close enough; economically irrelevant.** The 10% underestimate of income has zero effect on any welfare calculation. The 50,000 EUR figure is a reasonable round number approximation.
 
@@ -174,7 +180,7 @@ Income I appears in both V(p₀, I) and V(p₁, I) and cancels exactly. The sole
 
 **Evidence:** SSB household statistics (table 10986) show approximately 2,617,000 households in 2024. Working backward at approximately 1% annual growth, the 2021–2022 figure was approximately **2,480,000–2,530,000**. The 2.4 million figure is approximately **4% below the true count**.
 
-**Verdict: Minor underestimate; standard round-number approximation.** Using 2.5 million instead would increase aggregate consumer welfare loss from 5.03 bn EUR to 5.24 bn EUR — a 4% change that does not affect any conclusion. The 2.4 million figure is commonly used in Norwegian energy policy documents.
+**Verdict: Minor underestimate; standard round-number approximation.** Using 2.5 million instead would increase aggregate consumer welfare loss from 2.66 bn EUR to 2.77 bn EUR — a 4% change that does not affect any conclusion. The 2.4 million figure is commonly used in Norwegian energy policy documents.
 
 **Source:** SSB Families and Households statistics (table 10986); SSB income table showing 2,616,826 households in 2024.
 
@@ -190,13 +196,13 @@ Income I appears in both V(p₀, I) and V(p₁, I) and cancels exactly. The sole
 
 Including biomass/wood heating (additional ~2,500 kWh equivalent), total household energy spending was approximately **1,800–2,100 EUR/year** pre-war. The 2,000 EUR/year calibration target is within this range.
 
-**Important modelling note:** In the model, this 2,000 EUR/year is achieved as price × quantity = 10 EUR/MWh × 200 MWh. The implied quantity of 200 MWh per household is approximately 10 times actual Norwegian household electricity consumption (~15–18 MWh). This occurs because the model uses gas wholesale price (20 EUR/MWh × 0.5 passthrough = 10 EUR/MWh) as the domestic energy price, rather than the full retail electricity price (~100–120 øre/kWh ≈ 100–120 EUR/MWh).
+**Important modelling note:** In the model, this 2,000 EUR/year is achieved as price × quantity = 10 EUR/MWh × 200 MWh. The implied quantity of 200 MWh per household is approximately 10 times actual Norwegian household electricity consumption (~15–18 MWh). This is because we calibrate the pre-war domestic energy price at 10 EUR/MWh (a stylised gas-equivalent benchmark) rather than the full retail electricity price (~100–120 øre/kWh ≈ 100–120 EUR/MWh). The post-shock household price (≈ 16 EUR/MWh) is derived by applying the passthrough coefficient (0.5) to the *percentage* change in the gas price, not to the price level — i.e. households face 50% of the gas price increase, consistent with the literature on partial gas-to-electricity transmission in Norway.
 
 This is a known calibration simplification. The key result — the compensating variation — is unaffected because, for constant-elasticity demand, CV depends only on the **price ratio** (p₁/p₀) and **base expenditure**, not on the absolute price level or implied quantity separately:
 
 CV = (energy_spend_pre / (1 − η)) × [(p₁/p₀)^(1−η) − 1]
 
-Both the price ratio (p₁/p₀ = 43.89/20 = 2.19) and the base expenditure (2,000 EUR) enter correctly regardless of the unit decomposition.
+Both the household price ratio (p₁/p₀ ≈ 15.97 / 10 = 1.60) and the base expenditure (2,000 EUR) enter correctly regardless of the unit decomposition.
 
 **Verdict: Calibration target is empirically sound; the internal price/quantity decomposition is a modelling simplification that does not affect results.** The 2,000 EUR/year expenditure figure is confirmed by SSB data.
 
@@ -235,7 +241,8 @@ The 78% rate is explicitly stated on norskpetroleum.no (the official Norwegian g
 | δ (Russia's supply share) | 40% | ~40% of EU consumption | **Accurate** |
 | Norway supply share | 25% | 25% (IEA, 113 bcm/400 bcm) | **Accurate** |
 | ε_d (demand elasticity) | −0.30 | −0.15 to −0.25 (meta-analyses) | **Upper end; defensible for full-sector aggregate** |
-| ε_s (supply elasticity) | 0.35 | 0.05–0.15 Norway alone; higher for EU aggregate | **Interpreted as aggregate EU supply; defensible** |
+| ε_s (aggregate EU supply elasticity) | 0.35 | 0.10–0.30 (Krichene 2002, IMF) | **Used to solve European market equilibrium; defensible** |
+| ε_s,NO (Norway supply elasticity) | 0.07 | 0.05–0.15 (Norway-specific) | **Used for Norway's PS; reproduces empirical +5–8% volume response** |
 | Passthrough | 0.50 | 0.30–0.50 (Zhu et al. 2024; Statnett) | **Central estimate; within empirical range** |
 | η (household energy elasticity) | 0.30 | 0.10–0.20 (Norwegian empirical lit) | **Upper end of short-run; medium-run framing** |
 | I (household income) | 50,000 EUR | ~55,700 EUR (SSB, 2021 median) | **10% below actual; no effect on results** |
@@ -243,7 +250,7 @@ The 78% rate is explicitly stated on norskpetroleum.no (the official Norwegian g
 | Energy spend | 2,000 EUR/yr | ~1,800–2,100 EUR/yr (SSB data) | **Within empirical range** |
 | τ (petroleum tax) | 78% | Exactly 78% (22% + 56%) | **Perfectly accurate** |
 
-The most material sensitivity in the model is the **passthrough coefficient** (0.5), which directly scales consumer welfare loss. Reducing it to 0.3 would decrease the consumer welfare loss from 5.03 bn EUR to approximately 3.1 bn EUR — still far smaller than the government's 21.83 bn EUR gain, leaving all qualitative conclusions unchanged.
+The most material sensitivity in the model is the **passthrough coefficient** (0.5), which directly scales the household price increase and therefore consumer welfare loss. Reducing it to 0.3 would decrease the consumer welfare loss from 2.66 bn EUR to approximately 1.6 bn EUR — still far smaller than the government's 19.22 bn EUR gain, leaving all qualitative conclusions unchanged.
 
 ---
 

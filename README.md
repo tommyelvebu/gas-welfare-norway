@@ -48,15 +48,15 @@ Each member has their own sub-notebook in `member_X/` that runs independently. E
 |--------|--------|---------|-------------|
 | 1 | `member_1/` | Section 3 (Partial Equilibrium Model) | Supply/demand, equilibrium solving, producer surplus |
 | 2 | `member_2/` | Section 4 (Consumer Welfare) | Quasi-linear utility, compensating variation, welfare loss |
-| 3 | `member_3/` | Section 5 (Petroleum Tax) | Pigou/Ramsey framing, tax decomposition, distributional analysis |
+| 3 | `member_3/` | Section 5 (Petroleum Tax) | Resource rent tax / Ramsey framing, tax decomposition, distributional analysis |
 | 4 | `member_4/` | Sections 1-2, 6-7 (Integration) | Intro, background, sensitivity analysis, conclusion, presentation |
 
 ## Key Results (Baseline)
 
 - **Pre-war gas price:** 20 EUR/MWh --> **Post-shock:** 43.89 EUR/MWh (+119%)
-- **Norwegian PS gain (gross):** +28.0 bn EUR
-- **Government revenue gain (78% tax):** +21.8 bn EUR
-- **Firm profit gain (22%):** +6.2 bn EUR
-- **Consumer welfare loss:** -5.0 bn EUR
-- **Net welfare:** +23.0 bn EUR -- **Norway is a net winner**
-- Government could compensate every household **4.3x over** and still be ahead
+- **Norwegian PS gain (gross):** +24.6 bn EUR
+- **Government revenue gain (78% tax):** +19.2 bn EUR
+- **Firm profit gain (22%):** +5.4 bn EUR
+- **Consumer welfare loss:** -2.7 bn EUR
+- **Net welfare:** +22.0 bn EUR -- **Norway is a net winner**
+- Government could compensate every household **7.2x over** and still be ahead
